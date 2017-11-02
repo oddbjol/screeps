@@ -1,9 +1,10 @@
 "use strict";
 
-let roles = require('roles');
+let role = require('role');
 let spawner = require('spawner');
 let util = require('util');
 let planner = require('planner');
+let generic_creep = require("roles.creep");
 
 util.setUp();
 
@@ -23,26 +24,21 @@ if (!Memory.started) {
 
 module.exports.loop = function () {
 
-    clearCreepMemory();
+    checkCreepDeath();
 
     planner();
 
-    for (let creepName in Game.creeps) {
-        let creep = Game.creeps[creepName];
+    role.processAll();
 
-        roles[creep.memory.role](creep);
-    }
     spawner.tick();
 
-    function clearCreepMemory() {
-        for (let creep in Memory.creeps) {
-            if (!Game.creeps[creep]) {
-                let sourceID = Memory.creeps[creep].sourceID;
-                if (sourceID) {
-                    Memory.sources[sourceID].spotsInUse--;
-                }
-
-                delete Memory.creeps[creep];
+    function checkCreepDeath() {
+        for (let creep_name in Memory.creeps) {
+            if (!Game.creeps[creep_name]) {
+                let role_name = Memory.creeps[creep_name].role
+                if(role.roles[role_name].death)
+                    role.roles[role_name].death(creep_name);
+                generic_creep.death(creep_name);
             }
         }
     }
