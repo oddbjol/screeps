@@ -37,13 +37,13 @@ tick: function(){
             // Spawn is free, and we need more of this role.
 
             if(roleObj.role == 'harvester'){
-                let source = this.findFreeSource();
+                let source = spawn.room.findFreeSource();
                 if(source){
                     let result = spawn.spawnCreep(roleObj.body, roleObj.role + Game.time, {memory:{role: roleObj.role, sourceID: source.id}});
                     console.log("Tried spawning " + roleObj.role + " to " + source.id + " with result " + result);
                     console.log("spawn.spawning: " + spawn.spawning);
                     if(result >= 0){
-                        Memory.sources[source.id].spotsInUse = Memory.sources[source.id].spotsInUse + 1;
+                        source.spotsInUse++;
                         spawned = true;
                     }
                         
@@ -59,17 +59,6 @@ tick: function(){
         }
             
     }
-},
-
-findFreeSource: function(){
-    let sources = Game.spawns['Spawn1'].room.find(FIND_SOURCES_ACTIVE);
-    
-    for(let source of sources){
-        if(Memory.sources[source.id].spotsInUse < Memory.sources[source.id].totalSpots)
-            return source;
-    }
-    
-    return null;
 },
 
 numOfRole: function(role){

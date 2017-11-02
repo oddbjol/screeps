@@ -10,6 +10,30 @@ module.exports = {
             }
         });
 
+        Object.defineProperty(Source.prototype, "memory", {
+            get: function(){
+                return Memory.sources[this.id];
+            }
+        });
+
+        Object.defineProperty(Source.prototype, "spotsInUse", {
+            get: function(){
+                return this.memory.spotsInUse;
+            },
+            set: function(val){
+                this.memory.spotsInUse = val;
+            }
+        });
+
+        Object.defineProperty(Source.prototype, "totalSpots", {
+            get: function(){
+                return this.memory.totalSpots;
+            },
+            set: function(val){
+                this.memory.totalSpots = val;
+            }
+        });
+
         StructureSpawn.prototype.buildRoadsToSources = function(){
             let sources = Game.spawns['Spawn1'].room.find(FIND_SOURCES_ACTIVE);
 
@@ -49,6 +73,22 @@ module.exports = {
             for(let p of path){
                 let result = Game.spawns.Spawn1.room.createConstructionSite(p.x, p.y, struct_type);
             }
+        };
+
+        RoomPosition.prototype.walkable = function(){
+            let objects = this.look();
+            console.log(JSON.stringify(objects));
+        };
+
+        Room.prototype.findFreeSource = function(){
+            let sources = this.find(FIND_SOURCES_ACTIVE);
+
+            for(let source of sources){
+                if(source.spotsInUse < source.totalSpots)
+                    return source;
+            }
+
+            return null;
         };
     }
 };
