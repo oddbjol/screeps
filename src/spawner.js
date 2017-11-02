@@ -1,4 +1,4 @@
-let MAX_HARVESTERS_PER_SOURCE = 3;
+"use strict";
 
 module.exports = {
 

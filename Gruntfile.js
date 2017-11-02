@@ -2,6 +2,8 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-screeps');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
     grunt.initConfig({
         screeps: {
@@ -32,14 +34,17 @@ module.exports = function(grunt) {
         },
         uglify: {
             my_target: {
-                files: {
-                    'dest/output.min.js': ['src/**']
-                }
+                files: [{
+                    expand: true,
+                    cwd: 'src/',
+                    filter: 'isFile',
+                    src: ['**','!**/ScreepsAutocomplete-master/**'],
+                    dest: 'dist'
+                }]
             }
-        }
+        },
+        clean: ['dist/*']
     });
 
-
-
-    grunt.registerTask('default',['copy','screeps']);
+    grunt.registerTask('default',['copy','uglify','screeps', 'clean']);
 };
