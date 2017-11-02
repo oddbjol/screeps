@@ -11,8 +11,15 @@ tick: function(){
     
     let spawn = Game.spawns['Spawn1'];
 
-    // Don't spawn if already spawning, only spawn every so often.
-    if(spawn.spawning || Game.time % SPAWN_INTERVAL != 0)
+
+    // Show some info about the creep being spawned.
+    if(spawn.spawning){
+        spawn.room.visual.text("🛠 " + spawn.spawning.name, spawn.pos.x, spawn.pos.y+1, {font: '0.7 serif', stroke:'1px black'});
+        return; // Don't spawn if already spawning.
+    }
+
+    // Only spawn every so often.
+    if(Game.time % SPAWN_INTERVAL != 0)
         return;
 
     for(let roleName in role.roles){
