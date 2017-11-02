@@ -5,8 +5,10 @@ let spawner = require('spawner');
 let util = require('util');
 let planner = require('planner');
 
+util.setUp();
+
 if (!Memory.started) {
-    util.setUp();
+
     Game.spawns.Spawn1.buildRoadsToSources();
 
     Memory.sources = {};

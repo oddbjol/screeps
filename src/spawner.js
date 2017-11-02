@@ -41,7 +41,6 @@ tick: function(){
                 if(source){
                     let result = spawn.spawnCreep(roleObj.body, roleObj.role + Game.time, {memory:{role: roleObj.role, sourceID: source.id}});
                     console.log("Tried spawning " + roleObj.role + " to " + source.id + " with result " + result);
-                    console.log("spawn.spawning: " + spawn.spawning);
                     if(result >= 0){
                         source.spotsInUse++;
                         spawned = true;
