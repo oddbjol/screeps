@@ -1,7 +1,7 @@
 let roles = require('roles');
 
 let spawner = require('spawner');
-//tes
+//from intellij
 module.exports.loop = function(){
     
     clearCreepMemory();
