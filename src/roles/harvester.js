@@ -22,8 +22,6 @@ module.exports = {
             //console.log(creep.name + " deposited energy into Spawn1 with result " + result);
             if(result == ERR_NOT_IN_RANGE){
                 let result = creep.moveTo(Game.spawns['Spawn1'], {visualizePathStyle: {stroke: '#ddd'}});
-
-                console.log(creep.name + " is trying to move to spawn with result " + result);
             }
 
         }
@@ -34,11 +32,12 @@ module.exports = {
         let source = spawn.room.findFreeSource();
         if(source){
             let result = spawn.spawnCreep(this.body, this.name + Game.time, {memory:{role: this.name, sourceID: source.id}});
-            console.log("Tried spawning " + this.name + " to " + source.id + " with result " + result);
             if(result >= 0){
                 source.spotsInUse++;
                 return true; // We have spawned something, we are done.
             }
+            if(result != ERR_NOT_ENOUGH_ENERGY)
+                console.log("Tried spawning " + this.name + " to " + source.id + " with error " + result);
         }
     }
 };

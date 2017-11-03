@@ -1,12 +1,10 @@
-"use strict";
-
 let role = require('role');
 let spawner = require('spawner');
-let util = require('util');
+let library = require('library.library');
 let planner = require('planner');
 let generic_creep = require("roles.creep");
 
-util.setUp();
+library();
 
 if (!Memory.started) {
 
