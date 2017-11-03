@@ -8,7 +8,7 @@ library();
 
 if (!Memory.started) {
 
-    Game.spawns.Spawn1.buildRoadsToSources();
+    //Game.spawns.Spawn1.buildRoadsToSources();
 
     Memory.sources = {};
     for(let source of Game.spawns['Spawn1'].room.find(FIND_SOURCES)){
@@ -21,6 +21,12 @@ if (!Memory.started) {
 }
 
 module.exports.loop = function () {
+
+    // for(let i = 0; i < 20; i++){
+    //     let tile = Game.spawns.Spawn1.getBlock(i);
+    //     Game.spawns.Spawn1.room.visual.rect(tile, 3, 3);
+    //     Game.spawns.Spawn1.room.visual.text(i,tile.x + 1.5, tile.y+1.5,{font: '1.5 Serif'});
+    // }
 
     checkCreepDeath();
 
