@@ -34,6 +34,6 @@ module.exports = {
 
 
     },
-    body: function(){return [WORK, MOVE, CARRY];},
-    max: 0
+    body: function(spawn){return spawn.repeatBody([WORK, MOVE, CARRY]);},
+    max: 2
 };

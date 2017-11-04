@@ -78,6 +78,20 @@ module.exports = function(){
         this.buildBlockAt(this.blocksPlaced++);
     };
 
+    StructureSpawn.prototype.repeatBody = function(body){
+        let out = [];
+
+        let cost = 0; body.forEach(e => cost += BODYPART_COST[e]);
+        let num = Math.floor(spawn.room.energyAvailable / cost);
+
+        console.log("affordnum: " + num);
+        for(let i = 0; i < Math.max(num,1); i++){
+            out = out.concat(body);
+        }
+        console.log("generated body: " + JSON.stringify(out));
+        return out;
+    };
+
     Object.defineProperty(StructureSpawn.prototype, "blocksPlaced", {
         get:function(){
             let placed = this.memory.blocksPlaced;
@@ -94,3 +108,12 @@ module.exports = function(){
     });
 };
 
+function bodyCost(body){
+    let cost = 0;
+    body.forEach(e => cost += BODYPART_COST[e]);
+    return cost;
+}
+function affordNum(body, capacity){
+    console.log("have " + capacity + " need " + bodyCost(body));
+    return Math.floor(capacity / bodyCost(body));
+}

@@ -35,7 +35,7 @@ module.exports = {
         }
     },
     body: function(){return [WORK, MOVE, CARRY];},
-    max: 0,
+    max: 2,
     spawn: function(spawn){
         if(spawn.room.controller.level < 2)
             generic_creep.spawn(spawn, this);
