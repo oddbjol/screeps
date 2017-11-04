@@ -1,11 +1,11 @@
-const MAX_BLOCKS = 3;
+const MAX_BLOCKS = 1;
 
 module.exports = function(){
-    if(Game.time % 10 == 0 && spawn.room.controller.level >= 2){
+
+    if(Game.time % 10 == 0){
         for(const spawn_name in Game.spawns){
             let spawn = Game.spawns[spawn_name];
-            console.log("planning for spawn " + spawn.name);
-            if(spawn.blocksPlaced < MAX_BLOCKS)
+            if(spawn.blocksPlaced < MAX_BLOCKS && spawn.room.controller.level >= 2)
                 spawn.addBlock();
         }
     }

@@ -11,7 +11,6 @@ tick: function(){
     
     let spawn = Game.spawns['Spawn1'];
 
-
     // Show some info about the creep being spawned.
     if(spawn.spawning){
         spawn.room.visual.text("🛠 " + spawn.spawning.name, spawn.pos.x, spawn.pos.y+1, {font: '0.7 serif', stroke:'1px black'});
@@ -22,8 +21,16 @@ tick: function(){
     if(Game.time % SPAWN_INTERVAL != 0)
         return;
 
+
+    console.log("");
     for(let roleName in role.roles){
+        console.log("role: " + roleName);
         let roleObj = role.roles[roleName];
+
+        //TODO: refactor
+        if(roleName != 'harvester' && this.numOfRole('harvester') < 3)
+            continue;
+
         if(this.numOfRole(roleObj.name) < roleObj.max){
             // Spawn is free, and we need more of this role.
 

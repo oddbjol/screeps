@@ -3,13 +3,15 @@
 let harvester = require('roles.harvester');
 let builder = require('roles.builder');
 let upgrader = require('roles.upgrader');
+let logistics = require('roles.logistics');
 
 module.exports =
 {
     roles: {
-        harvester: harvester,
+        upgrader: upgrader,
         builder: builder,
-        upgrader: upgrader
+        logistics: logistics,
+        harvester: harvester
     },
     processAll: function(){
         for (let creepName in Game.creeps) {

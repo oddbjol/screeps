@@ -34,6 +34,6 @@ module.exports = {
 
 
     },
-    body: [WORK, MOVE, CARRY],
-    max: 2
+    body: function(){return [WORK, MOVE, CARRY];},
+    max: 0
 };

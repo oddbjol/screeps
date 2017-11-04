@@ -1,3 +1,5 @@
+let generic_creep = require("roles.creep");
+
 module.exports = {
     name: 'upgrader',
     run: function(creep){
@@ -32,6 +34,10 @@ module.exports = {
             }
         }
     },
-    body: [WORK, MOVE, CARRY],
-    max: 1
+    body: function(){return [WORK, MOVE, CARRY];},
+    max: 0,
+    spawn: function(spawn){
+        if(spawn.room.controller.level < 2)
+            generic_creep.spawn(spawn, this);
+    }
 };

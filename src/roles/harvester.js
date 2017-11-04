@@ -1,3 +1,13 @@
+function bodyCost(body){
+    let cost = 0;
+    body.forEach(e => cost += BODYPART_COST[e]);
+    return cost;
+}
+function affordNum(body, capacity){
+    console.log("have " + capacity + " need " + bodyCost(body));
+    return Math.floor(capacity / bodyCost(body));
+}
+
 module.exports = {
     name: 'harvester',
     death: function(creep_name){
@@ -26,18 +36,31 @@ module.exports = {
 
         }
     },
-    body: [WORK, MOVE, CARRY],
-    max: 100,
+    body: function(spawn){
+            let body = [WORK, MOVE, CARRY], out = [];
+            let num = affordNum(body, spawn.room.energyAvailable);
+            console.log("affordnum: " + num);
+            for(let i = 0; i < Math.max(num,1); i++){
+                out = out.concat(body);
+            }
+            console.log("generated body: " + JSON.stringify(out));
+            return out;
+        },
+    max: 6,
     spawn: function(spawn){
         let source = spawn.room.findFreeSource();
+
         if(source){
-            let result = spawn.spawnCreep(this.body, this.name + Game.time, {memory:{role: this.name, sourceID: source.id}});
+            console.log("gnona spawn");
+            let result = spawn.spawnCreep(this.body(spawn), this.name + Game.time, {memory:{role: this.name, sourceID: source.id}});
             if(result >= 0){
                 source.spotsInUse++;
                 return true; // We have spawned something, we are done.
             }
             if(result != ERR_NOT_ENOUGH_ENERGY)
                 console.log("Tried spawning " + this.name + " to " + source.id + " with error " + result);
+            else
+                console.log("out of energy: " + spawn.room.energyAvailable + ", need " + bodyCost(this.body(spawn)));
         }
     }
 };
