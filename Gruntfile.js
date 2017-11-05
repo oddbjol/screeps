@@ -1,5 +1,7 @@
 module.exports = function(grunt) {
 
+    let options = require("../screeps-grunt-options");
+
     grunt.loadNpmTasks('grunt-screeps');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -7,12 +9,7 @@ module.exports = function(grunt) {
 
     grunt.initConfig({
         screeps: {
-            options: {
-                email: 'olsen.oddbjorn@gmail.com',
-                password: 'pass',
-                branch: 'default',
-                ptr: false
-            },
+            options: options,
             dist: {
                 src: ['dist/*.js']
             }
