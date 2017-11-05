@@ -1,3 +1,4 @@
+let generic_creep = require("roles.creep");
 module.exports = {
     name: 'logistics',
     run: function(creep){
@@ -31,5 +32,9 @@ module.exports = {
         }
     },
     body: function(){return [WORK, MOVE, CARRY];},
+    spawn: function(spawn){
+        if(spawn.room.controller.maxExtensions > 0)
+            generic_creep.spawn(spawn, this);
+    },
     max: 1
 };

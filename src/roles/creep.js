@@ -5,7 +5,7 @@ module.exports = {
     },
     spawn: function(spawn, role){
         console.log("generic spawning " + role.name);
-        let result = spawn.spawnCreep(role.body(), role.name + Game.time, {memory:{role: role.name}});
+        let result = spawn.spawnCreep(role.body(spawn), role.name + Game.time, {memory:{role: role.name}});
         if(result >= 0)
             return true; // We have spawned something, we are done.
         if(result != ERR_NOT_ENOUGH_ENERGY)

@@ -64,6 +64,13 @@ module.exports = function(){
     StructureSpawn.prototype.buildBlockAt = function(num){
         let pos = this.getBlock(num);
 
+        //      R:road      O: extension
+        //
+        //      RRRR
+        //      ROOR
+        //      ROOR
+        //      RRRR
+
         for(let x = 0; x < 4; x++){
             for(let y = 0; y < 4; y++){
                 if(x == 0 || x == 3 || y == 0 || y == 3) // road
@@ -82,13 +89,11 @@ module.exports = function(){
         let out = [];
 
         let cost = 0; body.forEach(e => cost += BODYPART_COST[e]);
-        let num = Math.floor(spawn.room.energyAvailable / cost);
+        let num = Math.floor(this.room.energyAvailable / cost);
 
-        console.log("affordnum: " + num);
         for(let i = 0; i < Math.max(num,1); i++){
             out = out.concat(body);
         }
-        console.log("generated body: " + JSON.stringify(out));
         return out;
     };
 
@@ -107,13 +112,3 @@ module.exports = function(){
         }
     });
 };
-
-function bodyCost(body){
-    let cost = 0;
-    body.forEach(e => cost += BODYPART_COST[e]);
-    return cost;
-}
-function affordNum(body, capacity){
-    console.log("have " + capacity + " need " + bodyCost(body));
-    return Math.floor(capacity / bodyCost(body));
-}

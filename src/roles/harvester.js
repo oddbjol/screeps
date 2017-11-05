@@ -25,6 +25,9 @@ module.exports = {
             }
 
         }
+
+        creep.pos.createConstructionSite(STRUCTURE_ROAD); // TODO: TESTING
+
     },
     body: function(spawn){
             return spawn.repeatBody([WORK, MOVE, CARRY]);
@@ -42,8 +45,6 @@ module.exports = {
             }
             if(result != ERR_NOT_ENOUGH_ENERGY)
                 console.log("Tried spawning " + this.name + " to " + source.id + " with error " + result);
-            else
-                console.log("out of energy: " + spawn.room.energyAvailable + ", need " + bodyCost(this.body(spawn)));
         }
     }
 };

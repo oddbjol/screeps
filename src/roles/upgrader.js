@@ -33,9 +33,10 @@ module.exports = {
                     console.log("Error: " + creep.name + " tried to withdraw energy from " + source + " with error " + result);
             }
         }
+        creep.pos.createConstructionSite(STRUCTURE_ROAD); // TODO: TESTING
     },
     body: function(){return [WORK, MOVE, CARRY];},
-    max: 2,
+    max: 0,
     spawn: function(spawn){
         if(spawn.room.controller.level < 2)
             generic_creep.spawn(spawn, this);
